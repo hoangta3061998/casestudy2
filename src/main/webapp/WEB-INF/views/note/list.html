@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+</head>
+<body>
+<a href="/">Index</a><br/>
+<a href="/noteTypes">NoteType list</a><br/>
+<a href="/create-note">Create new note</a>
+<h1>Notes</h1>
+<form>
+    Search by name:
+    <input name="s" type="text"/>
+    <input type="submit" value="Search"/>
+</form><br/>
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    <th:block th:each="note : ${notes}">
+        <tr>
+            <td th:text="${note.getTitle()}"></td>
+            <th:block></th:block>
+            <td th:each="noteType : ${noteTypes}" th:if="${note.getTypeId() == noteType.getId()}" th:text="${noteType.getName()}"></td>
+            <td th:if="${note.getTypeId() == null || noteTypeService.findById(note.getTypeId()) == null}" th:text="null"></td>
+            <td><a th:href="@{/edit-note/__${note.getId()}__ }">Edit</a></td>
+            <td><a th:href="@{/delete-note/__${note.getId()}__ }">Delete</a></td>
+            <td><a th:href="@{/view-note/__${note.getId()}__ }">View</a></td>
+        </tr>
+    </th:block>
+    <div>
+        <a th:href="@{'/notes'(page=${notes.number - 1})}" th:if="${notes.hasPrevious()}">Previous</a>
+        <span th:text="${notes.number + 1}"></span>/<span th:text="${notes.totalPages}"></span>
+        <a th:href="@{'/notes'(page=${notes.number + 1})}" th:if="${notes.hasNext()}">Next</a>
+    </div>
+</table>
+</body>
+</html>

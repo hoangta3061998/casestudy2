@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="user/layout :: head"></head>
+<body>
+<table class="users">
+    <tr>
+        <th><a href="/users">User list</a></th>
+    </tr>
+</table>
+<h1>User</h1>
+<table th:object="${user}" class="user">
+    <tr>
+        <td>Name:</td>
+        <td th:text="${user.getEmail()}"></td>
+    </tr>
+    <tr>
+        <td>Description:</td>
+        <td th:text="${user.getPassword()}"></td>
+    </tr>
+    <tr>
+        <td>Avatar:</td>
+        <td><img width="60px" height="80px" th:src="@{'/image/' + ${user.getAvatar()}}"></td>
+    </tr>
+</table>
+<br/>
+<footer th:replace="user/layout :: footer"></footer>
+</body>
+</html>

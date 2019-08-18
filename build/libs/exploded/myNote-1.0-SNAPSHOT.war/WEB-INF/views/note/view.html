@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>NoteType</title>
+</head>
+<body>
+<h1>NoteType</h1>
+<p>
+    <a href="/notes">Note list</a>
+</p>
+<table th:object="${note}">
+    <tr>
+        <td>Title:</td>
+        <td th:text="${note.getTitle()}"></td>
+    </tr>
+    <tr>
+        <td>Content:</td>
+        <td th:text="${note.getContent()}"></td>
+    </tr>
+    <div th:if="${noteType}">
+        <tr>
+            <td>Name:</td>
+            <td th:text="${noteType.getName()}"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td th:text="${noteType.getDescription()}"></td>
+        </tr>
+    </div>
+</table>
+</body>
+</html>

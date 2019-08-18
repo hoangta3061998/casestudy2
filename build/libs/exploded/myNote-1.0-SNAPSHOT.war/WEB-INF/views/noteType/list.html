@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>NoteTypes</title>
+</head>
+<body>
+<a href="/">Index</a>
+<br/>
+<a href="/notes">Note list</a>
+<br/>
+<a href="/create-noteType">Create new noteType</a>
+<h1>NoteTypes</h1>
+<form>
+    Search by name:
+    <input name="s" type="text"/>
+    <input type="submit" value="Search"/>
+</form><br/>
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    <th:block th:each="noteType : ${noteTypes}">
+        <tr>
+            <td th:text="${noteType.getName()}"></td>
+            <td><a th:href="@{/edit-noteType/__${noteType.getId()}__ }">Edit</a></td>
+            <td><a th:href="@{/delete-noteType/__${noteType.getId()}__ }">Delete</a></td>
+            <td><a th:href="@{/view-noteType/__${noteType.getId()}__ }">View</a></td>
+        </tr>
+    </th:block>
+    <div>
+        <a th:href="@{'/noteTypes'(page=${noteTypes.number - 1})}" th:if="${noteTypes.hasPrevious()}">Previous</a>
+        <span th:text="${noteTypes.number + 1}"></span>/<span th:text="${noteTypes.totalPages}"></span>
+        <a th:href="@{'/noteTypes'(page=${noteTypes.number + 1})}" th:if="${noteTypes.hasNext()}">Next</a>
+    </div>
+</table>
+</body>
+</html>

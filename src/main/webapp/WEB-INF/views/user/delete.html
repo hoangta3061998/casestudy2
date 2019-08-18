@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="user/layout :: head"></head>
+<body>
+<table class="users">
+    <tr>
+        <th><a href="/users">User list</a></th>
+    </tr>
+</table>
+<h1>Delete user</h1>
+<h2>Are you sure?</h2>
+<form th:action="@{/delete-user}" th:object="${user}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table class="users">
+        <tr>
+            <td>Email:</td>
+            <td th:text="${user.getEmail()}"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td th:text="${user.getPassword()}"></td>
+        </tr>
+        <tr>
+            <td>Avatar:</td>
+            <td><img width="60px" height="80px" th:src="@{'/image/' + ${user.getAvatar()}}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Delete user"></td>
+        </tr>
+    </table>
+</form>
+<footer th:replace="user/layout :: footer"></footer>
+</body>
+</html>

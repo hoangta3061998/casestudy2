@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title th:text="#{login.title}"></title>
+</head>
+<body>
+<h1 th:text="#{login.heading}"></h1>
+Language: <a href="?lang=en">English</a> | <a href="?lang=haw">Hawaii</a>
+<form action="#" th:action="@{/login}" th:object="${user}" method="post">
+    <table border="0">
+        <tr>
+            <td th:text="#{login.email_label}"></td>
+            <td><input type="text" id="email" name="email"
+                       th:value="${cookieValue.value}"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{login.password_label}"></td>
+            <td><input type="password" th:field="*{password}"/></td>
+        </tr>
+    </table>
+    <input type="submit" th:value="#{login.submit_label}"/>
+</form>
+<br>
+<span th:text="${message}"></span>
+<span th:text="${user.email}"></span>
+</body>
+</html>

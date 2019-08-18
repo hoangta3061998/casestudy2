@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Note</title>
+</head>
+<body>
+<h1>Create Note</h1>
+<p>
+    <a href="/notes">Notes list</a>
+</p>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/create-note}" th:object="${note}" method="post">
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td><input type="text" th:field="*{title}"/></td>
+            <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</td>
+        </tr>
+        <tr>
+            <td>Content:</td>
+            <td><input type="text" th:field="*{content}"/></td>
+            <td th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Content Error</td>
+        </tr>
+        <tr>
+            <td>TypeId:</td>
+            <td>
+                <select th:field="*{typeId}">
+                    <option th:each="nt : ${noteTypes}" th:value="${nt.getId()}" th:text="${nt.getName()}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Phone Number:</td>
+            <td><input type="text" th:field="*{number}"/></td>
+            <td th:if="${#fields.hasErrors('number')}" th:errors="*{number}">Number Error</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Create Note"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
